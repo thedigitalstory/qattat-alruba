@@ -5,7 +5,7 @@ const path = require('node:path');
 const test = require('node:test');
 const source = fs.readFileSync(path.join(__dirname, '../dist/app.js'), 'utf8')
   .replace('render();initializeCloud();registerAgentTools();',
-    'globalThis.logic={cents,validateState,sampleState,totals,validDate,esc,currentMonth};');
+    'globalThis.logic={cents,validateState,sampleState,totals,validDate,esc,currentMonth,loginEmail};');
 const node = { addEventListener() {} };
 const sandbox = { window: { addEventListener() {} }, document: { querySelector: () => node, addEventListener() {} },
   setInterval() {}, setTimeout() {}, clearTimeout() {}, Intl, Date, structuredClone, console };
@@ -68,4 +68,10 @@ test('invalid imported ledgers fail validation without touching the original', (
 });
 test('user names and notes are escaped before rendering', () => {
   assert.equal(logic.esc('<img src=x onerror="alert(1)">'), '&lt;img src=x onerror=&quot;alert(1)&quot;&gt;');
+});
+
+test('username login supports dedicated accounts and preserves email login', () => {
+  assert.equal(logic.loginEmail(' Hamdan '), 'hamdan@qatta.example');
+  assert.equal(logic.loginEmail(' fayez.coder@gmail.com '), 'fayez.coder@gmail.com');
+  for (const bad of ['', 'ha', 'ham dan', 'hamdan@', '<script>']) assert.throws(() => logic.loginEmail(bad));
 });
