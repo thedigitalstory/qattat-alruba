@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123e32">
+  <meta name="description" content="قطّة الربع — دفتر الاستراحة الشهري للقطّة والمصاريف، بروح اللمة الحلوة.">
+  <title>قطّة الربع | دفتر الاستراحة</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='19' fill='%23123e32'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='43' font-family='Arial' fill='%23d4ec98'%3Eق%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./config.js" defer></script>
+  <script src="./assets/supabase.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="قطّة الربع، الرئيسية"><span class="brand-mark">ق</span><span>قطّة الربع<small>الحسبة علينا، والوناسة عليكم</small></span></a>
+      <span class="nav-caption">دفتر الاستراحة</span>
+      <nav aria-label="القائمة الرئيسية">
+        <a href="#overview" class="nav-link active" data-section="overview"><span data-icon="grid"></span>نظرة على القطّة</a>
+        <a href="#members" class="nav-link" data-section="members"><span data-icon="users"></span>الربع وقطّتهم<span class="nav-count" id="nav-count">١٢</span></a>
+        <a href="#expenses" class="nav-link" data-section="expenses"><span data-icon="receipt"></span>المصاريف والالتزامات</a>
+        <button class="nav-link" data-action="months"><span data-icon="calendar"></span>دفاتر الشهور</button>
+      </nav>
+      <div class="sidebar-note"><span class="note-spark">✳</span><p>الجلسة تحلى بوجودك،<br>والقطّة تحلى بتحويلك.</p><span>— حكمة أمين القطّة</span></div>
+      <div class="sidebar-bottom"><button class="nav-link" data-action="settings"><span data-icon="settings"></span>إعدادات الاستراحة</button><div class="manager"><span class="avatar">ح</span><div><strong id="sidebar-recipient">حمدان (أبو ذنب)</strong><small>أمين القطّة · الله يعينه</small></div><span class="manager-dot"></span></div></div>
+    </aside>
+    <div class="page-column">
+      <header class="topbar"><div><span class="mobile-brand">قطّة الربع</span><span class="breadcrumb"><span id="place-name">استراحة الربع</span><span>/</span><strong>دفتر القطّة</strong></span></div><div class="topbar-end"><button class="local-label" data-action="sync"><span data-icon="shield"></span><span id="storage-label">وضع التجربة</span></button><button class="account-button" data-action="account" id="account-button">دخول المسؤول</button></div></header>
+      <main id="overview">
+        <div class="intro"><div><div class="eyebrow">دفترنا واحد، ولمّتنا غير</div><h1>يا هلا بالربع <span class="wave">👋</span></h1><p>كل قطّة في مكانها، وكل ريال محسوب.</p></div><div class="month-control"><button class="icon-button" data-action="previous-month" aria-label="الشهر السابق"><span data-icon="chevron-right"></span></button><button class="month-picker" data-action="months"><span data-icon="calendar"></span><span id="selected-month">سبتمبر ٢٠٢٦</span><span data-icon="chevron-down"></span></button><button class="icon-button" data-action="next-month" aria-label="الشهر التالي"><span data-icon="chevron-left"></span></button></div></div>
+        <div class="demo-strip" id="demo-strip"><span><span class="demo-dot"></span>معاينة بأسماء الربع؛ تسجيل الدفعات مؤقت حتى الربط.</span><button data-action="start">نبدأ قطّتنا <span aria-hidden="true">←</span></button></div>
+        <section class="month-banner" aria-label="ملخص قطّة الشهر"><div class="banner-copy"><span class="banner-tag"><span class="pulse-dot"></span>قطّة الشهر</span><h2 id="banner-title">الجمعة الحلوة تبدأ بقطّة.</h2><p><span id="dues-note">٢٠٠ ر.س على الواحد</span><span class="banner-divider">|</span>التحويل إلى <strong id="recipient-name">حمدان (أبو ذنب)</strong></p><button class="light-button" data-action="payment"><span data-icon="plus"></span>سجّل دفعة</button></div><div class="banner-progress"><div class="progress-heading"><span>همّة الربع</span><span class="progress-percent" id="progress-percent">٠٪</span></div><div class="progress-track" role="progressbar" aria-label="نسبة تحصيل القطّة" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-fill" style="width:0%"></span></div><div class="progress-detail"><span id="progress-count">٠ من ١٢ دفعوا</span><span id="progress-target">الهدف ٢٬٤٠٠ ر.س</span></div><div class="progress-cheer" id="progress-cheer"><span>✦</span> باقي تكّة وتكتمل اللمّة!</div></div></section>
+        <section class="stats-grid" aria-label="ملخص الحسابات" id="stats"></section>
+        <div class="content-grid"><section class="panel members-panel" id="members"><div class="panel-heading"><div><h2>الربع وقطّتهم <span class="count-pill" id="member-count">١٢</span></h2><p>اللي دفع بيّض الله وجهه، والباقين فيهم الخير.</p></div><button class="outline-button small-button" data-action="member"><span data-icon="user-plus"></span>إضافة خوي</button></div><div class="filter-row" role="group" aria-label="تصفية الدفعات"><button class="filter active" data-filter="all">كل الربع</button><button class="filter" data-filter="paid">دفعوا <span id="paid-count">٠</span></button><button class="filter" data-filter="pending">ننتظرهم <span id="pending-count">١٢</span></button></div><div class="table-wrapper"><table><thead><tr><th scope="col">الخوي</th><th scope="col">القطّة</th><th scope="col">الحالة</th><th scope="col"><span class="sr-only">الإجراء</span></th></tr></thead><tbody id="member-rows"></tbody></table></div><div class="table-footer"><span data-icon="heart"></span><span>قطّة على قدّ الجيب، ووناسة تسوى الكثير.</span></div></section>
+        <aside class="details-column"><section class="panel recipient-card"><div class="card-eyebrow"><span data-icon="wallet"></span>عند مين القطّة؟</div><div class="recipient-profile"><span class="recipient-avatar" id="recipient-avatar">ح</span><div><h3 id="recipient-card-name">حمدان (أبو ذنب)</h3><p>أمين الصندوق وصاحب البال الطويل</p></div></div><div class="transfer-note" id="transfer-note">حوّل لأمين القطّة، ثم خلّه يسجّل دفعتك هنا.</div><button class="text-button" data-action="settings">تعديل بيانات التحويل <span aria-hidden="true">←</span></button></section><section class="quote-card"><span class="quote-icon" aria-hidden="true">☕</span><span class="quote-label">من سوالف المجلس</span><p>«اللي يقول حوّلت…<br>يرسل الإيصال يا طويل العمر»</p><span class="quote-foot">أمين القطّة، بعد ثالث فنجال</span></section></aside></div>
+        <section class="panel expenses-panel" id="expenses"><div class="panel-heading"><div><h2>وين راحت القطّة؟ <span class="section-emoji">🧾</span></h2><p>من إيجار الاستراحة إلى آخر كيس فحم.</p></div><button class="outline-button small-button" data-action="expense"><span data-icon="plus"></span>إضافة التزام</button></div><div id="expense-list" class="expense-list"></div><div class="expenses-footer" id="expenses-total"></div></section>
+        <footer class="page-footer"><span>قطّة الربع <span class="footer-spark">✳</span> جمعتنا هي المكسب.</span><button class="text-button" data-action="export"><span data-icon="download"></span>حفظ نسخة احتياطية</button></footer>
+      </main>
+    </div>
+  </div>
+  <dialog id="app-dialog" aria-labelledby="dialog-title"><div class="dialog-header"><h2 id="dialog-title"></h2><button class="icon-button" data-action="close-dialog" aria-label="إغلاق"><span data-icon="x"></span></button></div><div id="dialog-content"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <input type="file" id="import-file" accept="application/json,.json" hidden>
+</body>
+</html>
