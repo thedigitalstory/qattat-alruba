@@ -28,3 +28,7 @@ node tests/ledger.test.cjs
 npm install --prefix /tmp/qatta-db-tests @electric-sql/pglite@0.3.7 --no-audit --no-fund
 QATTA_PGLITE_MODULE=/tmp/qatta-db-tests/node_modules/@electric-sql/pglite/dist/index.js node tests/database.test.mjs
 ```
+
+## دخول باسم المستخدم
+
+أضيف دعم أسماء الدخول للحسابات المستقلة (مثل hamdan)، مع الحفاظ على دخول الحسابات الحالية بالبريد. نجحت الاختبارات المحلية الستة، بما فيها تحويل اسم الدخول وتنظيف المسافات ورفض الأسماء غير الصالحة. لا يمنح الاسم صلاحية إلا بعد إنشاء المستخدم وإضافته إلى qatta_admins. اختبار الدخول الفعلي لحساب حمدان ينتظر إنشاء كلمة مروره بواسطة مالك المشروع.
